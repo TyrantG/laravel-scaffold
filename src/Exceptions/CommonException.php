@@ -9,8 +9,8 @@ use TyrantG\LaravelScaffold\Enums\ResponseCodeEnum;
 
 class CommonException extends Exception
 {
-    public function render(ResponseCodeEnum $error, string $message): JsonResponse
+    public function render(string $message): JsonResponse
     {
-        return response()->json(http_result([], $error->value, $message ?: ResponseBusinessEnum::{$error->name}->value));
+        return response()->json(http_result([], ResponseCodeEnum::SERVER_ERROR->value, $message ?: ResponseBusinessEnum::SERVER_ERROR->value));
     }
 }

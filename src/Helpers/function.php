@@ -186,7 +186,7 @@ if (!function_exists('async_log')) {
      */
     function async_log(string $channel, string $type = 'info', string $message = '', array $context = []): PendingDispatch|PendingClosureDispatch|null
     {
-        return config('laravel-scaffold.async_logger.enable') ? dispatch(new AsyncLogger($channel, $type, $message, $context))
+        return config('laravel-scaffold.async_logger.enabled') ? dispatch(new AsyncLogger($channel, $type, $message, $context))
             ->onConnection(config('laravel-scaffold.async_logger.connection'))
             ->onQueue(config('laravel-scaffold.async_logger.queue')) : Log::channel($channel)->{$type}($message, $context);
     }
