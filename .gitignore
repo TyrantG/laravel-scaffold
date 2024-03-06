@@ -25,6 +25,7 @@ Homestead.json
 .DS_Store
 phpunit.phar
 /vendor
+artisan
 composer.phar
 composer.lock
 *.project

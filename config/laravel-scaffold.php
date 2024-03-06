@@ -30,4 +30,9 @@ return [
             //自定义
         ],
     ],
+
+    'async_logger' => [
+        'connection' => env('ASYNC_LOG_CONNECTION', config('queue.default')),
+        'queue' => env('ASYNC_LOG_QUEUE', 'default'),
+    ],
 ];

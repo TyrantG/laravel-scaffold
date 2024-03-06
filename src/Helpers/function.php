@@ -2,8 +2,11 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Foundation\Bus\PendingClosureDispatch;
+use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
+use TyrantG\LaravelScaffold\Jobs\AsyncLogger;
 use TyrantG\LaravelScaffold\Model;
 
 if (! function_exists('uuid')) {
@@ -167,5 +170,23 @@ if (! function_exists('getDistance')) {
         $calculatedDistance = $earthRadius * $stepTwo;
 
         return round($calculatedDistance, 4);
+    }
+}
+
+if (!function_exists('async_log')) {
+    /**
+     * 异步打印日志
+     *
+     * @param string $channel
+     * @param string $message
+     * @param array  $context
+     *
+     * @return PendingClosureDispatch|PendingDispatch
+     */
+    function async_log(string $channel, string $message, array $context = []): PendingDispatch|PendingClosureDispatch
+    {
+        return dispatch(new AsyncLogger($channel, $message, $context))
+            ->onConnection(config('laravel-scaffold.async_logger.connection'))
+            ->onQueue(config('laravel-scaffold.async_logger.queue'));
     }
 }

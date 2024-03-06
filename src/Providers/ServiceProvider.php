@@ -19,7 +19,7 @@ class ServiceProvider extends BaseServiceProvider
         } else {
             $publishPath = base_path('config/laravel-scaffold.php');
         }
-        $this->publishes([$configPath => $publishPath], 'laravel-scafford');
+        $this->publishes([$configPath => $publishPath], 'laravel-scaffold');
 
         $this->registerLogger();
     }
