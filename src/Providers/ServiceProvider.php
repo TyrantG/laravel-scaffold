@@ -9,6 +9,11 @@ use TyrantG\LaravelScaffold\Listeners\ResponseHandler;
 
 class ServiceProvider extends BaseServiceProvider
 {
+    protected array $routeMiddleware = [
+        'laravel-scaffold.accept'               => \TyrantG\LaravelScaffold\Http\Middleware\AcceptHeader::class,
+        'laravel-scaffold.request-log'          => \TyrantG\LaravelScaffold\Http\Middleware\RequestLogger::class,
+    ];
+
     public function boot(): void
     {
         $this->app['events']->listen(RequestHandled::class, ResponseHandler::class);
@@ -51,5 +56,16 @@ class ServiceProvider extends BaseServiceProvider
         ];
 
         Config::set('logging.channels', $loggingConfig);
+
+        $this->registerRouteMiddleware();
+    }
+
+    protected function registerRouteMiddleware(): void
+    {
+        $router = $this->app->make('router');
+
+        foreach ($this->routeMiddleware as $key => $middleware) {
+            $router->aliasMiddleware($key, $middleware);
+        }
     }
 }
