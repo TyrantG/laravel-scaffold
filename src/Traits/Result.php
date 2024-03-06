@@ -2,20 +2,23 @@
 
 namespace TyrantG\LaravelScaffold\Traits;
 
-use Illuminate\Http\JsonResponse;
-use Throwable;
+use TyrantG\LaravelScaffold\Enums\ResponseBusinessEnum;
 use TyrantG\LaravelScaffold\Enums\ResponseCodeEnum;
+use TyrantG\LaravelScaffold\Exceptions\CommonException;
 
 trait Result
 {
     public static function success(mixed $data = [], ?string $message = null): array
     {
-        return ResponseCodeEnum::RESPONSE_SUCCESS->make($data, $message);
+        return http_result($data, ResponseCodeEnum::RESPONSE_SUCCESS->value, $message ?: ResponseBusinessEnum::RESPONSE_SUCCESS->value);
     }
 
-    public static function error(ResponseCodeEnum $error = ResponseCodeEnum::SERVER_ERROR, ?string $message = null): array
+    /**
+     * @throws CommonException
+     */
+    public static function error(ResponseCodeEnum $error = ResponseCodeEnum::RESPONSE_SUCCESS, ?string $message = null): array
     {
-        return $error->make([], $message);
+        throw new CommonException($error, $message);
     }
 
     public function forbidden(): void

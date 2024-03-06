@@ -2,6 +2,7 @@
 
 namespace TyrantG\LaravelScaffold\Providers;
 
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -33,6 +34,8 @@ class ServiceProvider extends BaseServiceProvider
     {
         $configPath = __DIR__.'/../../config/laravel-scaffold.php';
         $this->mergeConfigFrom($configPath, 'laravel-scaffold');
+        $this->registerRouteMiddleware();
+        $this->registerExceptionHandler();
     }
 
     protected function registerLogger(): void
@@ -56,8 +59,6 @@ class ServiceProvider extends BaseServiceProvider
         ];
 
         Config::set('logging.channels', $loggingConfig);
-
-        $this->registerRouteMiddleware();
     }
 
     protected function registerRouteMiddleware(): void
@@ -66,6 +67,13 @@ class ServiceProvider extends BaseServiceProvider
 
         foreach ($this->routeMiddleware as $key => $middleware) {
             $router->aliasMiddleware($key, $middleware);
+        }
+    }
+
+    protected function registerExceptionHandler(): void
+    {
+        if (config('laravel-scaffold.exception_handler.enabled')) {
+            $this->app->singleton(ExceptionHandler::class, config('laravel-scaffold.exception_handler.handler'));
         }
     }
 }

@@ -178,15 +178,33 @@ if (!function_exists('async_log')) {
      * 异步打印日志
      *
      * @param string $channel
+     * @param string $type
      * @param string $message
      * @param array  $context
      *
      * @return PendingClosureDispatch|PendingDispatch
      */
-    function async_log(string $channel, string $message, array $context = []): PendingDispatch|PendingClosureDispatch
+    function async_log(string $channel, string $type = 'info', string $message = '', array $context = []): PendingDispatch|PendingClosureDispatch
     {
-        return dispatch(new AsyncLogger($channel, $message, $context))
+        return config('laravel-scaffold.async_logger.enable') ? dispatch(new AsyncLogger($channel, $type, $message, $context))
             ->onConnection(config('laravel-scaffold.async_logger.connection'))
-            ->onQueue(config('laravel-scaffold.async_logger.queue'));
+            ->onQueue(config('laravel-scaffold.async_logger.queue')) : Log::channel($channel)->{$type}($message, $context);
+    }
+}
+
+if (!function_exists('http_result')) {
+    /**
+     * 返回标准响应格式
+     */
+    function http_result(mixed $data = [], int $code = 0, string $message = '请求成功', string $result = 'SUCCESS'): array
+    {
+        return [
+            'state' => [
+                'code' => $code,
+                'message' => $message,
+                'result' => $result,
+            ],
+            'data' => $data,
+        ];
     }
 }
