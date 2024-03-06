@@ -13,7 +13,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->app['events']->listen(RequestHandled::class, ResponseHandler::class);
 
-        $configPath = __DIR__.'/../config/laravel-scaffold.php';
+        $configPath = __DIR__.'/../../config/laravel-scaffold.php';
         if (function_exists('config_path')) {
             $publishPath = config_path('laravel-scaffold.php');
         } else {
@@ -26,7 +26,7 @@ class ServiceProvider extends BaseServiceProvider
 
     public function register(): void
     {
-        $configPath = __DIR__.'/../config/laravel-scaffold.php';
+        $configPath = __DIR__.'/../../config/laravel-scaffold.php';
         $this->mergeConfigFrom($configPath, 'laravel-scaffold');
     }
 
