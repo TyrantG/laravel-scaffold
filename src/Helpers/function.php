@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 use TyrantG\LaravelScaffold\Jobs\AsyncLogger;
 use TyrantG\LaravelScaffold\Model;
 
-if (! function_exists('uuid')) {
+if (!function_exists('uuid')) {
     /**
      * 生成 uuid v4
      * */
@@ -19,7 +19,7 @@ if (! function_exists('uuid')) {
     }
 }
 
-if (! function_exists('is_url')) {
+if (!function_exists('is_url')) {
     /**
      * 判断字符串是否是 url
      * */
@@ -31,7 +31,7 @@ if (! function_exists('is_url')) {
     }
 }
 
-if (! function_exists('get_web_image')) {
+if (!function_exists('get_web_image')) {
     /**
      * 下载网络图片
      * */
@@ -42,14 +42,14 @@ if (! function_exists('get_web_image')) {
 
             return $client->request('get', $url)->getBody()->getContents();
         } catch (GuzzleException $e) {
-            Log::error('获取网络图片失败', (array) $e);
+            Log::error('获取网络图片失败', (array)$e);
 
             return false;
         }
     }
 }
 
-if (! function_exists('alphabet')) {
+if (!function_exists('alphabet')) {
     /**
      * 字母表
      */
@@ -59,14 +59,14 @@ if (! function_exists('alphabet')) {
     }
 }
 
-if (! function_exists('randomKeys')) {
+if (!function_exists('randomKeys')) {
     /**
      * 生成随机字符串(含数字、大小写字母)
      * */
     function randomKeys(int $length): string
     {
         $key = '';
-        $pattern = '1234567890'.alphabet().alphabet(true);
+        $pattern = '1234567890' . alphabet() . alphabet(true);
         for ($i = 0; $i < $length; $i++) {
             $key .= $pattern[mt_rand(0, mb_strlen($pattern) - 1)];
         }
@@ -75,11 +75,11 @@ if (! function_exists('randomKeys')) {
     }
 }
 
-if (! function_exists('modelUpdate')) {
+if (!function_exists('modelUpdate')) {
     /**
-     * @param  Model  $model  待更新模型
-     * @param  array  $params  新数据
-     * @param  bool  $strict  严格模式：true为按模型的fillable更新，false为全部更新，可能存在字段不存在
+     * @param Model $model  待更新模型
+     * @param array $params 新数据
+     * @param bool  $strict 严格模式：true为按模型的fillable更新，false为全部更新，可能存在字段不存在
      *
      * @see 用于模型更新,使用save取代update方法
      */
@@ -100,13 +100,13 @@ if (! function_exists('modelUpdate')) {
     }
 }
 
-if (! function_exists('addZeros')) {
+if (!function_exists('addZeros')) {
     /**
      * 数字补0
      */
     function addZeros(int $number, int $length): string
     {
-        $numberString = (string) $number;
+        $numberString = (string)$number;
         if (strlen($numberString) >= $length) {
             return $numberString;
         } else {
@@ -115,7 +115,7 @@ if (! function_exists('addZeros')) {
     }
 }
 
-if (! function_exists('adminAuthCheck')) {
+if (!function_exists('adminAuthCheck')) {
     /**
      * 判断后台登录
      */
@@ -125,7 +125,7 @@ if (! function_exists('adminAuthCheck')) {
     }
 }
 
-if (! function_exists('fillArrayKey')) {
+if (!function_exists('fillArrayKey')) {
     /**
      * 将数组填充至fillable
      */
@@ -137,7 +137,7 @@ if (! function_exists('fillArrayKey')) {
     }
 }
 
-if (! function_exists('getDistance')) {
+if (!function_exists('getDistance')) {
     /**
      * 根据两点间的经纬度计算距离
      */
@@ -173,19 +173,19 @@ if (! function_exists('getDistance')) {
     }
 }
 
-if (! function_exists('async_log')) {
+if (!function_exists('async_log')) {
     /**
      * 异步打印日志
      */
     function async_log(string $channel, string $type = 'info', string $message = '', array $context = []): PendingDispatch|PendingClosureDispatch|null
     {
-        return config('laravel-scaffold.async_logger.enabled') ? dispatch(new AsyncLogger($channel, $type, $message, $context))
+        return config('laravel-scaffold.async_logger.enable') ? dispatch(new AsyncLogger($channel, $type, $message, $context))
             ->onConnection(config('laravel-scaffold.async_logger.connection'))
             ->onQueue(config('laravel-scaffold.async_logger.queue')) : Log::channel($channel)->{$type}($message, $context);
     }
 }
 
-if (! function_exists('http_result')) {
+if (!function_exists('http_result')) {
     /**
      * 返回标准响应格式
      */
@@ -199,5 +199,35 @@ if (! function_exists('http_result')) {
             ],
             'data' => $data,
         ];
+    }
+}
+
+if (!function_exists('objectToArray')) {
+    /**
+     * 对象转为数组
+     */
+    function objectToArray($object): array
+    {
+        return json_decode(json_encode($object), true);
+    }
+}
+
+if (!function_exists('handleApiMethod')) {
+    /**
+     * 处理接口请求类型为数组
+     *
+     * @param string|array $method
+     *
+     * @return array|false|string[]
+     */
+    function handleApiMethod(string|array $method): array|false
+    {
+        if (is_array($method)) {
+            return $method;
+        } else if (str_contains($method, ',')) {
+            return explode(",", strtoupper($method));
+        } else {
+            return [strtoupper($method)];
+        }
     }
 }
