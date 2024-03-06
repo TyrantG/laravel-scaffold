@@ -19,7 +19,7 @@ class ServiceProvider extends BaseServiceProvider
         } else {
             $publishPath = base_path('config/laravel-scaffold.php');
         }
-        $this->publishes([$configPath => $publishPath], 'config');
+        $this->publishes([$configPath => $publishPath], 'laravel-scafford');
 
         $this->registerLogger();
     }
@@ -36,7 +36,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $loggingConfig['daily'] = [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/main/'.date('Y-m').'/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 36500,
             'replace_placeholders' => true,
@@ -44,7 +44,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $loggingConfig['request'] = [
             'driver' => 'daily',
-            'path' => storage_path('logs/request.log'),
+            'path' => storage_path('logs/request/'.date('Y-m').'/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 36500,
             'replace_placeholders' => true,

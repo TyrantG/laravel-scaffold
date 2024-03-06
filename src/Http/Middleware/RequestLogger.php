@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class RequestLogger
 {
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next): Response|JsonResponse|RedirectResponse
     {
         if (! config('laravel-scaffold.request_logger.enabled') || $this->getExceptUrl($request)) {
             return $next($request);
