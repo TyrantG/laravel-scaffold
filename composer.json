@@ -6,7 +6,7 @@
     "type": "library",
     "keywords": ["TyrantG", "Laravel", "Scaffold"],
     "homepage": "https://github.com/TyrantG/laravel-scaffold",
-    "license": "BSD 3-Clause",
+    "license": "MIT",
     "authors": [
         {
             "name": "TyrantGenesis",
