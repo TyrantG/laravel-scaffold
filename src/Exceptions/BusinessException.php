@@ -9,8 +9,24 @@ use TyrantG\LaravelScaffold\Enums\ResponseCodeEnum;
 
 class BusinessException extends Exception
 {
-    public function render(ResponseCodeEnum $error, string $message): JsonResponse
+    public ResponseCodeEnum $error = ResponseCodeEnum::SERVER_ERROR;
+    public $message = '';
+
+    public function __construct(ResponseCodeEnum $error = ResponseCodeEnum::SERVER_ERROR, string $message = '', \Throwable $previous = null, int $code = 0)
     {
-        return response()->json(http_result([], $error->value, $message ?: ResponseBusinessEnum::{$error->name}->value));
+        $this->error = $error;
+        $this->message = $message;
+
+        parent::__construct($message, $code, $previous);
+    }
+
+    public function render(): JsonResponse
+    {
+        return response()->json(http_result(
+            [],
+            $this->error->value,
+            $this->message ?: ResponseBusinessEnum::{$this->error->name}->value,
+            'FAILED'
+        ));
     }
 }
