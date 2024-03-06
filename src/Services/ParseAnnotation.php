@@ -2,6 +2,7 @@
 
 namespace TyrantG\LaravelScaffold\Services;
 
+use Illuminate\Support\Str;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
@@ -44,7 +45,7 @@ class ParseAnnotation
 
                 if (count($attributes)) {
                     $methodList[] = [
-                        'name' => $name,
+                        'name' => Str::snake($name),
                         ...$this->parseAttributes($attributes),
                     ];
                 }
