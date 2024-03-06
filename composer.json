@@ -1,0 +1,39 @@
+{
+    "name": "tyrantg/laravel-scaffold",
+    "alias": "Laravel Scaffold",
+    "version": "0.1.0",
+    "description": "Laravel业务基础框架",
+    "type": "library",
+    "keywords": ["TyrantG", "Laravel", "Scaffold"],
+    "homepage": "https://github.com/TyrantG/laravel-scaffold",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "TyrantGenesis",
+            "email": "genesis489449701@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^10.10",
+        "guzzlehttp/guzzle": "7.2"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.0"
+    },
+    "autoload": {
+        "files": [
+            "src/Helpers/function.php"
+        ],
+        "psr-4": {
+            "TyrantG\\LaravelScaffold\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TyrantG\\LaravelScaffold\\Providers\\ServiceProvider"
+            ]
+        }
+    }
+}
