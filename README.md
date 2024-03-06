@@ -18,8 +18,8 @@ Laravel业务基础框架
        // ...
        'api' => [
            // ...
-           \TyrantG\LaravelScaffold\Http\Middleware\AcceptHeader::class,
-           \TyrantG\LaravelScaffold\Http\Middleware\RequestLogger::class,
+           'laravel-scaffold.accept:json',
+           'laravel-scaffold.request-log',
        ],
    ];
    ```
