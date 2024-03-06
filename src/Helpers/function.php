@@ -77,11 +77,11 @@ if (! function_exists('randomKeys')) {
 
 if (! function_exists('modelUpdate')) {
     /**
-     * @see 用于模型更新,使用save取代update方法
-     *
      * @param  Model  $model  待更新模型
      * @param  array  $params  新数据
      * @param  bool  $strict  严格模式：true为按模型的fillable更新，false为全部更新，可能存在字段不存在
+     *
+     * @see 用于模型更新,使用save取代update方法
      */
     function modelUpdate(Model $model, array $params, bool $strict = true): Model
     {
@@ -173,16 +173,9 @@ if (! function_exists('getDistance')) {
     }
 }
 
-if (!function_exists('async_log')) {
+if (! function_exists('async_log')) {
     /**
      * 异步打印日志
-     *
-     * @param string $channel
-     * @param string $type
-     * @param string $message
-     * @param array  $context
-     *
-     * @return PendingClosureDispatch|PendingDispatch|null
      */
     function async_log(string $channel, string $type = 'info', string $message = '', array $context = []): PendingDispatch|PendingClosureDispatch|null
     {
@@ -192,7 +185,7 @@ if (!function_exists('async_log')) {
     }
 }
 
-if (!function_exists('http_result')) {
+if (! function_exists('http_result')) {
     /**
      * 返回标准响应格式
      */

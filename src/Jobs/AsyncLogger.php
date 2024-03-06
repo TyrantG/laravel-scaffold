@@ -12,11 +12,14 @@ class AsyncLogger implements ShouldQueue
     use InteractsWithQueue, Queueable;
 
     private string $channel;
+
     private string $type;
+
     private string $message;
+
     private ?array $context;
 
-    public function __construct(string $channel, string $type, string $message, array $context = null)
+    public function __construct(string $channel, string $type, string $message, ?array $context = null)
     {
         $this->channel = $channel;
         $this->type = $type;

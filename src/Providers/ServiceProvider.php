@@ -11,8 +11,8 @@ use TyrantG\LaravelScaffold\Listeners\ResponseHandler;
 class ServiceProvider extends BaseServiceProvider
 {
     protected array $routeMiddleware = [
-        'laravel-scaffold.accept'               => \TyrantG\LaravelScaffold\Http\Middleware\AcceptHeader::class,
-        'laravel-scaffold.request-log'          => \TyrantG\LaravelScaffold\Http\Middleware\RequestLogger::class,
+        'laravel-scaffold.accept' => \TyrantG\LaravelScaffold\Http\Middleware\AcceptHeader::class,
+        'laravel-scaffold.request-log' => \TyrantG\LaravelScaffold\Http\Middleware\RequestLogger::class,
     ];
 
     public function boot(): void

@@ -10,9 +10,10 @@ use TyrantG\LaravelScaffold\Enums\ResponseCodeEnum;
 class BusinessException extends Exception
 {
     public ResponseCodeEnum $error = ResponseCodeEnum::SERVER_ERROR;
+
     public $message = '';
 
-    public function __construct(ResponseCodeEnum $error = ResponseCodeEnum::SERVER_ERROR, string $message = '', \Throwable $previous = null, int $code = 0)
+    public function __construct(ResponseCodeEnum $error = ResponseCodeEnum::SERVER_ERROR, string $message = '', ?\Throwable $previous = null, int $code = 0)
     {
         $this->error = $error;
         $this->message = $message;

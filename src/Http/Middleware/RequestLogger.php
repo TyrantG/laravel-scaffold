@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 
 class RequestLogger
 {
@@ -101,8 +100,7 @@ class RequestLogger
     /**
      * 获取请求方式
      *
-     * @param Request $request
-     * @return string
+     *
      *
      * @other    由于laravel存在_method覆盖机制，若有括号，则括号内的为真正的请求方式
      */
@@ -126,9 +124,6 @@ class RequestLogger
 
     /**
      * 获取客户端的IP
-     *
-     * @param  Request  $request
-     * @return string
      */
     private function getClientIp(Request $request): string
     {
@@ -137,10 +132,6 @@ class RequestLogger
 
     /**
      * 获取用户代理
-     *
-     * @param Request $request
-     *
-     * @return string
      */
     private function getUa(Request $request): string
     {
@@ -238,10 +229,6 @@ class RequestLogger
 
     /**
      * 获取状态码
-     *
-     * @param JsonResponse|Response $response
-     *
-     * @return string|array
      */
     private function getHttpCode(Response|JsonResponse $response): array|string
     {
@@ -272,8 +259,6 @@ class RequestLogger
      * 格式化数组并转换为字符串
      *
      * @param  $request_data  array
-     *
-     * @return string
      */
     private function dataFormat(array $request_data): string
     {
@@ -289,8 +274,6 @@ class RequestLogger
 
     /**
      * 获取程序占用的内存
-     *
-     * @return string
      */
     private function getUsageMemory(): string
     {

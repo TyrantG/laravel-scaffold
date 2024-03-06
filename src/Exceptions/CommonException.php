@@ -11,7 +11,7 @@ class CommonException extends Exception
 {
     public $message = '';
 
-    public function __construct(string $message = '', \Throwable $previous = null, int $code = 0)
+    public function __construct(string $message = '', ?\Throwable $previous = null, int $code = 0)
     {
         $this->message = $message;
         parent::__construct($message, $code, $previous);

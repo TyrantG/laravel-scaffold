@@ -10,12 +10,6 @@ class AcceptHeader
 {
     /**
      * Handle an incoming request.
-     *
-     * @param Request $request
-     * @param Closure $next
-     * @param string  $type
-     *
-     * @return mixed
      */
     public function handle(Request $request, Closure $next, string $type = 'json'): mixed
     {
