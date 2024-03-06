@@ -33,7 +33,7 @@ class RequestLogger
 
         $is_except_record_response_data_url = $this->getExceptRecordResponseDataUrl($request);
         if ($is_except_record_response_data_url) {
-            async_log('request', $this->dataFormat($request_data));
+            async_log('request', 'info', $this->dataFormat($request_data));
         }
 
         $start = microtime(true);
@@ -46,7 +46,7 @@ class RequestLogger
             $request_data['code'] = $this->getHttpCode($response);
             $request_data['response'] = $this->responseFormat($request, $response);
 
-            async_log('request', $this->dataFormat($request_data));
+            async_log('request', 'info', $this->dataFormat($request_data));
         }
 
         return $response;
