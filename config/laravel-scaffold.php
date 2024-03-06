@@ -2,7 +2,7 @@
 
 return [
     'request_logger' => [
-        'enabled' => env('REQUEST_LOGGER_ENABLED', true),
+        'enabled' => (bool) env('REQUEST_LOGGER_ENABLED', true),
         // 是否记录非json格式的响应的数据
         'is_record_not_json' => true,
         // 设置不记录日志的url
@@ -32,13 +32,13 @@ return [
     ],
 
     'async_logger' => [
-        'enabled' => env('ASYNC_LOG_ENABLED', true),
+        'enabled' => (bool) env('ASYNC_LOG_ENABLED', true),
         'connection' => env('ASYNC_LOG_CONNECTION', config('queue.default')),
         'queue' => env('ASYNC_LOG_QUEUE', 'default'),
     ],
 
     'exception_handler' => [
-        'enabled' => env('EXCEPTION_HANDLER_ENABLED', true),
+        'enabled' => (bool) env('EXCEPTION_HANDLER_ENABLED', true),
         'handler' => 'TyrantG\\LaravelScaffold\\Exceptions\\Handler',
     ],
 ];
